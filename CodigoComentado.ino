@@ -68,7 +68,8 @@ void animaLogo() {
 void setup() {
   Serial.begin(9600);           // Inicializa comunicação serial para debug
   dht.begin();                  // Inicializa sensor DHT
-  rtc.begin();                  // Inicializa relógio RTC
+  rtc.begin();                  // Inicializa relógio RTC]
+  rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
 
   // Define pinos dos LEDs e buzzer como saída
   pinMode(ledVerde, OUTPUT);
@@ -124,26 +125,6 @@ void setup() {
   delay(2000);
   lcd.clear();
 
-  // (Comentado) Código para verificar logs existentes na EEPROM e contar quantos já foram escritos
-  // Serve para retomar do último ponto gravado ao reiniciar
-  /*
-  Serial.println("DEBUG: Verificando EEPROM no setup...");
-  for (int i = 0; i < EEPROM.length(); i += TAMANHO_REGISTRO) {
-    byte marker = EEPROM.read(i + 9);
-    Serial.print("DEBUG: Endereco "); Serial.print(i);
-    Serial.print(", Byte 9 (marcador): 0x"); Serial.print(marker, HEX);
-    if (marker == 0x01) {
-      numLogsEscritos++;
-      enderecoEEPROM = i + TAMANHO_REGISTRO;
-      Serial.println(" (Valido)");
-    } else {
-      Serial.println(" (Invalido/Vazio). Parando contagem.");
-      break;
-    }
-  }
-  Serial.print("Logs encontrados na EEPROM: ");
-  Serial.println(numLogsEscritos);
-  */
 }
 
 // === LOOP PRINCIPAL ===
